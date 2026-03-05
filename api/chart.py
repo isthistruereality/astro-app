@@ -13,7 +13,7 @@ class handler(BaseHTTPRequestHandler):
         if not api_key:
             self.send_response(500)
             self.end_headers()
-            self.wfile.write(b'API key not set')
+            self.wfile.write(b'Missing API key in environment')
             return
 
         headers = {
@@ -22,6 +22,7 @@ class handler(BaseHTTPRequestHandler):
         }
 
         api_url = 'https://json.freeastrologyapi.com/western/planets'
+
         try:
             resp = requests.post(api_url, headers=headers, json=data)
             resp.raise_for_status()
